@@ -54,13 +54,11 @@ server <- function(input, output) {
     # Get playlist data, reactive to user input
     playlist_data <- eventReactive(input$submit, {
         audio_features <- get_playlist_audio_features(playlist_uris = input$uri) %>%
-            filter(!is.null(track.artists)) %>%
+            drop_na(track.name) %>%
             group_by(added_by.id) %>%
             mutate(
                 Artist = map_chr(track.artists, function(x) x$name[1]), 
                 added_at = lubridate::as_datetime(added_at),
-                num_obs = n(),
-                track.explicit = ifelse(track.explicit == TRUE, 1, 0),
                 track.duration = track.duration_ms/1000
             ) %>%
             rename(
