@@ -111,7 +111,7 @@ server <- function(input, output) {
             plot <- base_plot +
                 geom_point(aes(x = get(input$x), y = get(input$y),
                                text = paste("Track: ", track.name, "\n",
-                                            "Artist", Artist, "\n",
+                                            "Artist: ", Artist, "\n",
                                             "Album: ", track.album.name, "\n",
                                             "Added By: ", `Added By`, "\n",
                                             input$x, ": ", get(input$x), "\n",
